@@ -1,8 +1,7 @@
-﻿using System.Web;
-using System.Web.Optimization;
-
-namespace CijferRegistratie
+﻿namespace CijferRegistratie
 {
+    using System.Web.Optimization;
+
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
