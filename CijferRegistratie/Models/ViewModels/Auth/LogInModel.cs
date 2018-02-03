@@ -25,7 +25,7 @@
         /// <summary>
         /// Gets or sets the ReturnUrl
         /// </summary>
-        [HiddenInput]
+        [HiddenInput(DisplayValue = false)]
         public string ReturnUrl { get; set; }
     }
 }
