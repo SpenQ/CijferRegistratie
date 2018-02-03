@@ -1,4 +1,4 @@
-﻿[assembly: OwinStartup(typeof(CijferRegistratie.Startup))]
+﻿[assembly: Microsoft.Owin.OwinStartup(typeof(CijferRegistratie.Startup))]
 namespace CijferRegistratie
 {
     using System;
