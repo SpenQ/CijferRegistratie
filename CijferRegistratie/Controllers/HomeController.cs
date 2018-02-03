@@ -1,15 +1,11 @@
 ﻿namespace CijferRegistratie.Controllers
 {
-    using System.Security.Claims;
     using System.Web.Mvc;
 
-    public class HomeController : Controller
+    public class HomeController : AppController
     {
         public ActionResult Index()
         {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
-            ViewBag.Country = claimsIdentity.FindFirst(ClaimTypes.Country).Value;
-
             return View();
         }
 
