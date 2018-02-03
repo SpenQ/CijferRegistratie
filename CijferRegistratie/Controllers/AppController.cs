@@ -1,5 +1,4 @@
 ﻿using CijferRegistratie.Models.Auth;
-using System.Security.Claims;
 using System.Web.Mvc;
 
 namespace CijferRegistratie.Controllers
@@ -10,7 +9,7 @@ namespace CijferRegistratie.Controllers
         {
             get
             {
-                return new AppUser(User as ClaimsPrincipal);
+                return new AppUser();
             }
         }
     }

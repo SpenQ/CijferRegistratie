@@ -7,11 +7,11 @@ namespace CijferRegistratie.Models.MVC
 {
     public class AppViewPage<TModel> : WebViewPage<TModel>
     {
-        protected AppUser CurrentUser
+        protected AppUserPrincipal CurrentUser
         {
             get
             {
-                return new AppUser(User as ClaimsPrincipal);
+                return new AppUserPrincipal(User as ClaimsPrincipal);
             }
         }
 

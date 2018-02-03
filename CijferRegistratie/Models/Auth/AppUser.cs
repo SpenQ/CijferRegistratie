@@ -1,28 +1,11 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CijferRegistratie.Models.Auth
 {
-    public class AppUser : ClaimsPrincipal
+    public class AppUser : IdentityUser
     {
-        public AppUser(ClaimsPrincipal principal)
-        : base(principal)
-        {
-        }
+        public string Name { get; set; }
 
-        public string Name
-        {
-            get
-            {
-                return FindFirst(ClaimTypes.Name).Value;
-            }
-        }
-
-        public string Country
-        {
-            get
-            {
-                return FindFirst(ClaimTypes.Country).Value;
-            }
-        }
+        public string Country { get; set; }
     }
 }

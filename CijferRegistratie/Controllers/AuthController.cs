@@ -1,5 +1,9 @@
-﻿using CijferRegistratie.Models.ViewModels.Auth;
+﻿using CijferRegistratie.Models.Auth;
+using CijferRegistratie.Models.ViewModels.Auth;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,6 +12,18 @@ namespace CijferRegistratie.Controllers
     [AllowAnonymous]
     public class AuthController : Controller
     {
+        private readonly UserManager<AppUser> userManager;
+
+        public AuthController()
+        : this(Startup.UserManagerFactory.Invoke())
+        {
+        }
+
+        public AuthController(UserManager<AppUser> userManager)
+        {
+            this.userManager = userManager;
+        }
+
         // GET: Auth/LogIn
         [HttpGet]
         public ActionResult LogIn(string returnUrl)
@@ -22,35 +38,23 @@ namespace CijferRegistratie.Controllers
 
         // POST: Auth/LogIn
         [HttpPost]
-        public ActionResult LogIn(LogInModel model)
+        public async Task<ActionResult> LogIn(LogInModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            // Don't do this in production!
-            if (model.Email == "admin@admin.com" && model.Password == "password")
+            var user = await userManager.FindAsync(model.Email, model.Password);
+
+            if (user != null)
             {
-                var identity = new ClaimsIdentity(
-                    new[] 
-                    {
-                        new Claim(ClaimTypes.Name, "Admin"),
-                        new Claim(ClaimTypes.Email, "admin@admin.com"),
-                        new Claim(ClaimTypes.Country, "The Netherlands")
-                    },
-                    "ApplicationCookie");
-
-                var ctx = Request.GetOwinContext();
-                var authManager = ctx.Authentication;
-
-                authManager.SignIn(identity);
-
+                await SignIn(user);
                 return Redirect(GetRedirectUrl(model.ReturnUrl));
             }
 
             // user auth failed
-            ModelState.AddModelError("", "Invalid email or password");
+            ModelState.AddModelError(string.Empty, "Invalid email or password");
             return View();
         }
 
@@ -62,6 +66,31 @@ namespace CijferRegistratie.Controllers
 
             authManager.SignOut("ApplicationCookie");
             return RedirectToAction("index", "home");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && userManager != null)
+            {
+                userManager.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private async Task SignIn(AppUser user)
+        {
+            var identity = await userManager.CreateIdentityAsync(
+                user, DefaultAuthenticationTypes.ApplicationCookie);
+
+            identity.AddClaim(new Claim(ClaimTypes.Country, user.Country));
+
+            GetAuthenticationManager().SignIn(identity);
+        }
+
+        private IAuthenticationManager GetAuthenticationManager()
+        {
+            var ctx = Request.GetOwinContext();
+            return ctx.Authentication;
         }
 
         private string GetRedirectUrl(string returnUrl)
