@@ -45,7 +45,6 @@ namespace CijferRegistratie.Migrations
                 var user = new AppUser
                 {
                     UserName = "admin@cijferregistratie.com",
-                    Name = "Admin",
                     Country = "The Netherlands"
                 };
 
