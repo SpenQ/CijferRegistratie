@@ -1,19 +1,29 @@
 namespace CijferRegistratie.Migrations
 {
+    using System.Data.Entity.Migrations;
+    using System.Linq;
     using CijferRegistratie.Models.Auth;
     using CijferRegistratie.Models.MVC;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
 
+    /// <summary>
+    /// Defines the <see cref="Configuration" />
+    /// </summary>
     internal sealed class Configuration : DbMigrationsConfiguration<AppDbContext>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Configuration"/> class.
+        /// </summary>
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
+        /// <summary>
+        /// The Seed
+        /// </summary>
+        /// <param name="context">The <see cref="AppDbContext"/></param>
         protected override void Seed(AppDbContext context)
         {
             if (!context.Roles.Any(r => r.Name == "AppAdmin"))

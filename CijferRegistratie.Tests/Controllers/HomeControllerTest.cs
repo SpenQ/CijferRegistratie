@@ -4,9 +4,15 @@
     using CijferRegistratie.Controllers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    /// <summary>
+    /// Defines the <see cref="HomeControllerTest" />
+    /// </summary>
     [TestClass]
     public class HomeControllerTest
     {
+        /// <summary>
+        /// The Index
+        /// </summary>
         [TestMethod]
         public void Index()
         {
@@ -20,6 +26,9 @@
             Assert.IsNotNull(result);
         }
 
+        /// <summary>
+        /// The About
+        /// </summary>
         [TestMethod]
         public void About()
         {
@@ -33,6 +42,9 @@
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
+        /// <summary>
+        /// The Contact
+        /// </summary>
         [TestMethod]
         public void Contact()
         {
