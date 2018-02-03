@@ -1,0 +1,18 @@
+﻿@model ExamControl.Models.ViewModels.Auth.LogInModel
+@{
+    ViewBag.Title = "Log In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Log In</h2>
+
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+    <br />
+    <p>
+        <button type="submit" class="btn btn-primary">Log In</button>
+    </p>
+}
