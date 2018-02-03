@@ -1,19 +1,20 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - ExamControl - Hogeschool Uithuizermeeden</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <div class="container">
+        <h1>ExamControl - Hogeschool Uithuizermeeden</h1>
         <nav class="nav">
-            @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
-            @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
-            @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
-
             @if (CurrentUser.Identity.IsAuthenticated)
             {
+                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
+                @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
+
                 @Html.ActionLink("Log Out", "LogOut", "Auth", null, new { @class = "nav-link" })
             }
         </nav>
