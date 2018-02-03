@@ -11,7 +11,11 @@
             @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
             @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
             @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
-            @Html.ActionLink("Log Out", "LogOut", "Auth", null, new { @class = "nav-link" })
+
+            @if (CurrentUser.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Log Out", "LogOut", "Auth", null, new { @class = "nav-link" })
+            }
         </nav>
         @RenderBody()
         <hr />
