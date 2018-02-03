@@ -26,22 +26,18 @@ namespace CijferRegistratie.Migrations
         /// <param name="context">The <see cref="AppDbContext"/></param>
         protected override void Seed(AppDbContext context)
         {
-            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole
-                {
-                    Name = "AppAdmin"
-                };
+            CreateRoles(context);
 
-                manager.Create(role);
-            }
+            CreateUsers(context);
+        }
+
+        private static void CreateUsers(AppDbContext context)
+        {
+            var store = new UserStore<AppUser>(context);
+            var manager = new UserManager<AppUser>(store);
 
             if (!context.Users.Any(u => u.UserName == "admin@cijferregistratie.com"))
             {
-                var store = new UserStore<AppUser>(context);
-                var manager = new UserManager<AppUser>(store);
                 var user = new AppUser
                 {
                     UserName = "admin@cijferregistratie.com",
@@ -50,6 +46,84 @@ namespace CijferRegistratie.Migrations
 
                 manager.Create(user, "22INF2A");
                 manager.AddToRole(user.Id, "AppAdmin");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "administratie@cijferregistratie.com"))
+            {
+                var user = new AppUser
+                {
+                    UserName = "administratie@cijferregistratie.com",
+                    Country = "The Netherlands"
+                };
+
+                manager.Create(user, "22INF2A");
+                manager.AddToRole(user.Id, "Admin");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "docent@cijferregistratie.com"))
+            {
+                var user = new AppUser
+                {
+                    UserName = "docent@cijferregistratie.com",
+                    Country = "The Netherlands"
+                };
+
+                manager.Create(user, "22INF2A");
+                manager.AddToRole(user.Id, "Teacher");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "student@cijferregistratie.com"))
+            {
+                var user = new AppUser
+                {
+                    UserName = "student@cijferregistratie.com",
+                    Country = "The Netherlands"
+                };
+
+                manager.Create(user, "22INF2A");
+                manager.AddToRole(user.Id, "Student");
+            }
+        }
+
+        private static void CreateRoles(AppDbContext context)
+        {
+            var store = new RoleStore<IdentityRole>(context);
+            var manager = new RoleManager<IdentityRole>(store);
+
+            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
+            {
+                manager.Create(
+                    new IdentityRole
+                    {
+                        Name = "AppAdmin"
+                    });
+            }
+
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                manager.Create(
+                    new IdentityRole
+                    {
+                        Name = "Admin"
+                    });
+            }
+
+            if (!context.Roles.Any(r => r.Name == "Teacher"))
+            {
+                manager.Create(
+                    new IdentityRole
+                    {
+                        Name = "Teacher"
+                    });
+            }
+
+            if (!context.Roles.Any(r => r.Name == "Student"))
+            {
+                manager.Create(
+                    new IdentityRole
+                    {
+                        Name = "Student"
+                    });
             }
         }
     }
