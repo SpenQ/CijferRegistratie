@@ -7,21 +7,27 @@
 </head>
 <body>
     <div class="container">
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                @Html.ActionLink("Uitloggen", "LogOut", "Auth", null, new { @class = "nav-link float-right" })
+            </li>
+        </ul>
         <h1>ExamControl - Hogeschool Uithuizermeeden</h1>
-        <nav class="nav">
-            @if (CurrentUser.Identity.IsAuthenticated)
-            {
-                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
-                @Html.ActionLink("About", "About", "Home", null, new { @class = "nav-link" })
-                @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
-
-                @Html.ActionLink("Log Out", "LogOut", "Auth", null, new { @class = "nav-link" })
-            }
-        </nav>
+        @if (CurrentUser.Identity.IsAuthenticated)
+        {
+            <ul class="nav">
+                <li class="nav-item">
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Plannen", "Index", "Plan", null, new { @class = "nav-link" })
+                </li>
+            </ul>
+        }
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Avans - 22INF2A - IDH7 - A5</p>
+            <p>&copy; @DateTime.Now.Year - Avans - 22INF2A - SkaffSolutions - IDH7</p>
         </footer>
     </div>
 

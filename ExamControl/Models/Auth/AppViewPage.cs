@@ -1,9 +1,8 @@
-﻿namespace ExamControl.Models.MVC
+﻿namespace ExamControl.Models.Auth
 {
     using System;
     using System.Security.Claims;
     using System.Web.Mvc;
-    using ExamControl.Models.Auth;
 
     /// <summary>
     /// Defines the <see cref="AppViewPage{TModel}" />

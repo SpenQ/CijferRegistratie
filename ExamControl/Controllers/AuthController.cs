@@ -5,7 +5,6 @@
     using System.Web;
     using System.Web.Mvc;
     using ExamControl.Models.Auth;
-    using ExamControl.Models.ViewModels.Auth;
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin.Security;
 

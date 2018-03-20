@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamControl", "ExamControl\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamControl.Tests", "ExamControl.Tests\ExamControl.Tests.csproj", "{8EF5498F-CD05-400B-B562-CAF4977AA7CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamControl.Domain", "ExamControl.Domain\ExamControl.Domain.csproj", "{AE35812C-6CD3-4FDB-999B-967D1A46F6FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8EF5498F-CD05-400B-B562-CAF4977AA7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EF5498F-CD05-400B-B562-CAF4977AA7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EF5498F-CD05-400B-B562-CAF4977AA7CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE35812C-6CD3-4FDB-999B-967D1A46F6FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE35812C-6CD3-4FDB-999B-967D1A46F6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE35812C-6CD3-4FDB-999B-967D1A46F6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE35812C-6CD3-4FDB-999B-967D1A46F6FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

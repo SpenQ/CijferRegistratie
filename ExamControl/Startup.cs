@@ -2,8 +2,8 @@
 namespace ExamControl
 {
     using System;
+    using ExamControl.Models;
     using ExamControl.Models.Auth;
-    using ExamControl.Models.MVC;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using Microsoft.Owin;

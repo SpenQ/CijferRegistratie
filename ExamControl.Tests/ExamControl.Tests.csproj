@@ -100,6 +100,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExamControl.Domain\ExamControl.Domain.csproj">
+      <Project>{ae35812c-6cd3-4fdb-999b-967d1a46f6fe}</Project>
+      <Name>ExamControl.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExamControl\ExamControl.csproj">
       <Project>{F420EBB5-32D9-4700-85C4-0992333D88AC}</Project>
       <Name>ExamControl</Name>

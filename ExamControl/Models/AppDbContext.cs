@@ -1,5 +1,7 @@
-﻿namespace ExamControl.Models.MVC
+﻿namespace ExamControl.Models
 {
+    using System.Data.Entity;
+    using ExamControl.Domain;
     using ExamControl.Models.Auth;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -15,5 +17,11 @@
             : base("ExamControl.Properties.Settings.ConnectionString")
         {
         }
+
+        public DbSet<Subject> Subjects { get; set; }
+
+        public DbSet<Exam> Exams { get; set; }
+
+        public DbSet<ExamRegistration> ExamRegistrations { get; set; }
     }
 }

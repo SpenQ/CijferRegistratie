@@ -1,4 +1,4 @@
-﻿namespace ExamControl.Models.ViewModels.Auth
+﻿namespace ExamControl.Models.Auth
 {
     using System.ComponentModel.DataAnnotations;
     using System.Web.Mvc;

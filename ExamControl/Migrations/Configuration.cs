@@ -1,9 +1,11 @@
 namespace ExamControl.Migrations
 {
+    using System;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using ExamControl.Domain;
+    using ExamControl.Models;
     using ExamControl.Models.Auth;
-    using ExamControl.Models.MVC;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -31,6 +33,10 @@ namespace ExamControl.Migrations
             CreateUsers(context);
         }
 
+        /// <summary>
+        /// The CreateUsers
+        /// </summary>
+        /// <param name="context">The <see cref="AppDbContext"/></param>
         private static void CreateUsers(AppDbContext context)
         {
             var store = new UserStore<AppUser>(context);
@@ -85,8 +91,13 @@ namespace ExamControl.Migrations
             }
         }
 
+        /// <summary>
+        /// The CreateRoles
+        /// </summary>
+        /// <param name="context">The <see cref="AppDbContext"/></param>
         private static void CreateRoles(AppDbContext context)
         {
+            // Users
             var store = new RoleStore<IdentityRole>(context);
             var manager = new RoleManager<IdentityRole>(store);
 
@@ -124,6 +135,25 @@ namespace ExamControl.Migrations
                     {
                         Name = "Student"
                     });
+            }
+
+            // Subjects, exams and registrations
+            if (!context.Subjects.Any() && !context.Exams.Any())
+            {
+                var subjectEnglish = new Subject()
+                {
+                    Name = "Engels"
+                };
+
+                var examEnglish = new Exam()
+                {
+                    Subject = subjectEnglish,
+                    DateTime = DateTime.Now.AddDays(7)
+                };
+
+                context.Subjects.Add(subjectEnglish);
+
+                context.Exams.Add(examEnglish);
             }
         }
     }
