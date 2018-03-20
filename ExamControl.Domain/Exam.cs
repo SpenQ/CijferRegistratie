@@ -26,6 +26,11 @@
         public Subject Subject { get; set; }
 
         /// <summary>
+        /// Gets or sets the EstimatedAmountOfStudents
+        /// </summary>
+        public uint EstimatedAmountOfStudents { get; set; }
+
+        /// <summary>
         /// Gets or sets the Attributes
         /// </summary>
         public KeyValuePair<string, string> Attributes { get; set; }

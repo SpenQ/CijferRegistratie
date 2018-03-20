@@ -31,11 +31,6 @@
         public bool AvailableSurveillant { get; set; }
 
         /// <summary>
-        /// Gets or sets the AmountStudents
-        /// </summary>
-        public int AmountStudents { get; set; }
-
-        /// <summary>
         /// Gets or sets the Attributes
         /// </summary>
         public KeyValuePair<string, string> Attributes { get; set; }
