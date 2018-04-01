@@ -4,6 +4,7 @@
     <title>@ViewBag.Title - ExamControl - Hogeschool Uithuizermeeden</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,6 +22,25 @@
                 </li>
                 <li class="nav-item">
                     @Html.ActionLink("Plannen", "Index", "Plan", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Examens</a>
+                    <div class="dropdown-menu">
+                        @if (CurrentUser.IsInRole("Admin"))
+                        {
+                            @Html.ActionLink("Invoeren cijfers", "InsertGrades", "Exam", null, new { @class = "nav-link" })
+                        }
+
+                        @if (CurrentUser.IsInRole("Student"))
+                        {
+                            @Html.ActionLink("Registreren examens", "RegisterExam", "Exam", null, new { @class = "nav-link" })
+                        }
+
+                        @if (CurrentUser.IsInRole("Teacher"))
+                        {
+                            @Html.ActionLink("Aanmaken examens", "InsertExam", "Exam", null, new { @class = "nav-link" })
+                        }
+                    </div>
                 </li>
             </ul>
         }
