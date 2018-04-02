@@ -31,6 +31,8 @@ namespace ExamControl.Migrations
             CreateRoles(context);
 
             CreateUsers(context);
+
+            CreateOthers(context);
         }
 
         /// <summary>
@@ -136,7 +138,10 @@ namespace ExamControl.Migrations
                         Name = "Student"
                     });
             }
+        }
 
+        private static void CreateOthers(AppDbContext context)
+        {
             // Subjects, exams and registrations
             if (!context.Subjects.Any() && !context.Exams.Any())
             {
