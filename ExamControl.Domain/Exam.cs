@@ -9,6 +9,16 @@
     /// </summary>
     public class Exam
     {
+        public Exam(DateTime? dateTime, Subject subject, int estimatedAmountOfStudents, Classroom classroom, bool needsComputers, bool surveillantAvailable)
+        {
+            DateTime = dateTime;
+            Subject = subject;
+            EstimatedAmountOfStudents = estimatedAmountOfStudents;
+            Classroom = classroom;
+            NeedsComputers = needsComputers;
+            SurveillantAvailable = surveillantAvailable;
+        }
+
         /// <summary>
         /// Gets or sets the Id
         /// </summary>
@@ -28,11 +38,12 @@
         /// <summary>
         /// Gets or sets the EstimatedAmountOfStudents
         /// </summary>
-        public uint EstimatedAmountOfStudents { get; set; }
+        public int EstimatedAmountOfStudents { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Attributes
-        /// </summary>
-        public KeyValuePair<string, string> Attributes { get; set; }
+        public Classroom Classroom { get; set; }
+
+        public bool NeedsComputers { get; set; }
+
+        public bool SurveillantAvailable { get; set; }
     }
 }

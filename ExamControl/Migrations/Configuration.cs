@@ -31,6 +31,8 @@ namespace ExamControl.Migrations
             CreateRoles(context);
 
             CreateUsers(context);
+
+            CreateOthers(context);
         }
 
         /// <summary>
@@ -136,20 +138,20 @@ namespace ExamControl.Migrations
                         Name = "Student"
                     });
             }
+        }
 
+        private static void CreateOthers(AppDbContext context)
+        {
             // Subjects, exams and registrations
             if (!context.Subjects.Any() && !context.Exams.Any())
             {
-                var subjectEnglish = new Subject()
-                {
-                    Name = "Engels"
-                };
+                var subjectEnglish = new Subject("Engels");
 
-                var examEnglish = new Exam()
-                {
-                    Subject = subjectEnglish,
-                    DateTime = DateTime.Now.AddDays(7)
-                };
+                var classroom = new Classroom(16, true, "ABC");
+
+                var examEnglish = new Exam(DateTime.Now.AddDays(7), subjectEnglish, 15, classroom, true, true);
+
+                context.Classrooms.Add(classroom);
 
                 context.Subjects.Add(subjectEnglish);
 
