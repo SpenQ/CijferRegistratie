@@ -29,12 +29,12 @@
                         <th scope="row">
                             <div class="form-group">
 
-                                @*@Html.DropDownListFor(m => m.ExamSubject, ViewBag.ExamSubjects as IEnumerable<SelectListItem>)*@
+                                @Html.DropDownListFor(m => m.SelectedExamSubject, ViewBag.ExamSubjects as IEnumerable<SelectListItem>, "Selecteer vak...", new { @class = "form-control" })
                                 @*<select class="form-control" id="exampleFormControlSelect1">
-                                    <option>ASP C# .NET</option>
-                                    <option>Engels 1</option>
-                                    <option>RUP</option>
-                                </select>*@
+                                        <option>ASP C# .NET</option>
+                                        <option>Engels 1</option>
+                                        <option>RUP</option>
+                                    </select>*@
                             </div>
                         </th>
                         <td>
