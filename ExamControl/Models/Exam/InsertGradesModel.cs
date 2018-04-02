@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web;
 
-namespace ExamControl.Models.InsertGrades
+namespace ExamControl.Models.Exam
 {
     public class InsertGradesModel
     {
