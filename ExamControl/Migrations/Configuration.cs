@@ -44,18 +44,6 @@ namespace ExamControl.Migrations
             var store = new UserStore<AppUser>(context);
             var manager = new UserManager<AppUser>(store);
 
-            if (!context.Users.Any(u => u.UserName == "admin@examcontrol.com"))
-            {
-                var user = new AppUser
-                {
-                    UserName = "admin@examcontrol.com",
-                    Country = "The Netherlands"
-                };
-
-                manager.Create(user, "22INF2A");
-                manager.AddToRole(user.Id, "AppAdmin");
-            }
-
             if (!context.Users.Any(u => u.UserName == "administratie@examcontrol.com"))
             {
                 var user = new AppUser
@@ -102,15 +90,6 @@ namespace ExamControl.Migrations
             // Users
             var store = new RoleStore<IdentityRole>(context);
             var manager = new RoleManager<IdentityRole>(store);
-
-            if (!context.Roles.Any(r => r.Name == "AppAdmin"))
-            {
-                manager.Create(
-                    new IdentityRole
-                    {
-                        Name = "AppAdmin"
-                    });
-            }
 
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
