@@ -9,13 +9,14 @@
     /// </summary>
     public class Exam
     {
-        public Exam(DateTime? dateTime, Subject subject, int estimatedAmountOfStudents, Classroom classroom, bool needsComputers)
+        public Exam(DateTime? dateTime, Subject subject, int estimatedAmountOfStudents, Classroom classroom, bool needsComputers, bool surveillantAvailable)
         {
             DateTime = dateTime;
             Subject = subject;
             EstimatedAmountOfStudents = estimatedAmountOfStudents;
             Classroom = classroom;
             NeedsComputers = needsComputers;
+            SurveillantAvailable = surveillantAvailable;
         }
 
         /// <summary>
@@ -42,5 +43,7 @@
         public Classroom Classroom { get; set; }
 
         public bool NeedsComputers { get; set; }
+
+        public bool SurveillantAvailable { get; set; }
     }
 }

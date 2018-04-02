@@ -36,7 +36,14 @@ namespace ExamControl.Controllers
         {
             var ctx = new AppDbContext();
 
-            var insertExam = new Exam(null, null, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers);
+            var subject = ctx.Subjects.Where(s => s.Id == model.SelectedExamSubject).SingleOrDefault();
+
+            if (subject == null)
+            {
+                throw new Exception("Subject does not exist.");
+            }
+
+            var insertExam = new Exam(null, subject, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers, model.ExamSurveillantAvailable);
 
             ctx.Exams.Add(insertExam);
 

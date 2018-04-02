@@ -7,6 +7,10 @@
     /// </summary>
     public class Subject
     {
+        public Subject()
+        {
+        }
+
         public Subject(string name)
         {
             Name = name;

@@ -13,7 +13,7 @@ namespace ExamControl.Models.Exam
         [Required]
         public HttpPostedFileBase File { get; set; }
 
-        public bool ExamRegistrationSurveillantAvailable { get; set; }
+        public bool ExamSurveillantAvailable { get; set; }
 
         [Required]
         public int SelectedExamSubject { get; set; }
