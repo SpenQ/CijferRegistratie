@@ -8,11 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <ul class="nav justify-content-end">
-            <li class="nav-item">
-                @Html.ActionLink("Uitloggen", "LogOut", "Auth", null, new { @class = "nav-link float-right" })
-            </li>
-        </ul>
+        @if (CurrentUser.Identity.IsAuthenticated)
+        {
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    @Html.ActionLink("Uitloggen", "LogOut", "Auth", null, new { @class = "nav-link float-right" })
+                </li>
+            </ul>
+        }
         <h1>ExamControl - Hogeschool Uithuizermeeden</h1>
         @if (CurrentUser.Identity.IsAuthenticated)
         {
