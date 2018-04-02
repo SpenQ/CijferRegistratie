@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Web;
 
 namespace ExamControl.Models.Exam
@@ -17,5 +18,8 @@ namespace ExamControl.Models.Exam
 
         [Required]
         public int SelectedExamSubject { get; set; }
+
+        [Required]
+        public TimeSpan ExamDuration { get; set; }
     }
 }

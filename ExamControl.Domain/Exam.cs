@@ -1,7 +1,6 @@
 ﻿namespace ExamControl.Domain
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     /// <summary>
@@ -9,7 +8,7 @@
     /// </summary>
     public class Exam
     {
-        public Exam(DateTime? dateTime, Subject subject, int estimatedAmountOfStudents, Classroom classroom, bool needsComputers, bool surveillantAvailable)
+        public Exam(DateTime? dateTime, Subject subject, int estimatedAmountOfStudents, Classroom classroom, bool needsComputers, bool surveillantAvailable, TimeSpan duration)
         {
             DateTime = dateTime;
             Subject = subject;
@@ -17,6 +16,7 @@
             Classroom = classroom;
             NeedsComputers = needsComputers;
             SurveillantAvailable = surveillantAvailable;
+            Duration = duration;
         }
 
         /// <summary>
@@ -45,5 +45,7 @@
         public bool NeedsComputers { get; set; }
 
         public bool SurveillantAvailable { get; set; }
+
+        public TimeSpan Duration { get; set; }
     }
 }
