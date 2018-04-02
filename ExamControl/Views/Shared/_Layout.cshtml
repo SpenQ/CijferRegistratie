@@ -23,12 +23,17 @@
                 <li class="nav-item">
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Plannen", "Index", "Plan", null, new { @class = "nav-link" })
-                </li>
+                @if (CurrentUser.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink("Plannen", "Index", "Plan", null, new { @class = "nav-link" })
+                    </li>
+                }
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Examens</a>
                     <div class="dropdown-menu">
+                        @Html.ActionLink("Overzicht", "Overview", "Exam", null, new { @class = "nav-link" })
+
                         @if (CurrentUser.IsInRole("Admin"))
                         {
                             @Html.ActionLink("Invoeren cijfers", "InsertGrades", "Exam", null, new { @class = "nav-link" })

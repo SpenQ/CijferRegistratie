@@ -7,6 +7,11 @@
     /// </summary>
     public class Subject
     {
+        public Subject(string name)
+        {
+            Name = name;
+        }
+
         /// <summary>
         /// Gets or sets the Id
         /// </summary>

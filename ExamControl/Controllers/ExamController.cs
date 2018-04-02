@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using ExamControl.Domain;
 using ExamControl.Models;
@@ -11,8 +12,6 @@ namespace ExamControl.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult RegisterExam()
         {
-            ViewBag.ExamSubjects = new AppDbContext().Subjects.Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() });
-
             return View();
         }
 
@@ -20,6 +19,13 @@ namespace ExamControl.Controllers
         public ActionResult InsertExam()
         {
             var model = new InsertExamModel();
+
+            ViewBag.ExamSubjects = new AppDbContext().Subjects
+                    .Select(s => new SelectListItem()
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.Name
+                    });
 
             return View();
         }
@@ -30,10 +36,7 @@ namespace ExamControl.Controllers
         {
             var ctx = new AppDbContext();
 
-            var insertExam = new Exam()
-            {
-                EstimatedAmountOfStudents = model.EstimatedAmountOfStudents
-            };
+            var insertExam = new Exam(null, null, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers);
 
             ctx.Exams.Add(insertExam);
 
@@ -46,6 +49,47 @@ namespace ExamControl.Controllers
         public ActionResult InsertGrades()
         {
             return View();
+        }
+
+        [Authorize(Roles = "Admin,Student,Teacher")]
+        public ActionResult Overview()
+        {
+            if (User.IsInRole("Teacher"))
+            {
+                return RedirectToAction("OverviewTeacher");
+            }
+            else if (User.IsInRole("Student"))
+            {
+                return RedirectToAction("OverviewStudent");
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("OverviewAdmin");
+            }
+            else
+            {
+                return new HttpUnauthorizedResult();
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult OverviewAdmin()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Authorize(Roles = "Teacher")]
+        public ActionResult OverviewTeacher()
+        {
+            var model = new OverviewTeacher(new AppDbContext());
+
+            return View(model);
+        }
+
+        [Authorize(Roles = "Student")]
+        public ActionResult OverviewStudent()
+        {
+            throw new NotImplementedException();
         }
     }
 }
