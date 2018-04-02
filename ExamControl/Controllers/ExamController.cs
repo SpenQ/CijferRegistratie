@@ -1,11 +1,8 @@
-﻿using ExamControl.Domain;
+﻿using System.Linq;
+using System.Web.Mvc;
+using ExamControl.Domain;
 using ExamControl.Models;
 using ExamControl.Models.Exam;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace ExamControl.Controllers
 {
@@ -28,6 +25,7 @@ namespace ExamControl.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Teacher")]
         public ActionResult InsertExam(InsertExamModel model)
         {
             var ctx = new AppDbContext();
@@ -41,7 +39,7 @@ namespace ExamControl.Controllers
 
             ctx.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("InsertExam");
         }
 
         [Authorize(Roles = "Admin")]
