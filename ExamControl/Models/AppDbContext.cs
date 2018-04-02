@@ -20,8 +20,12 @@
 
         public DbSet<Subject> Subjects { get; set; }
 
-        public DbSet<Exam> Exams { get; set; }
+        public DbSet<Domain.Exam> Exams { get; set; }
 
         public DbSet<ExamRegistration> ExamRegistrations { get; set; }
+
+        public DbSet<Classroom> Classrooms { get; set; }
+
+        public DbSet<Evaluation> Evaluations { get; set; }
     }
 }

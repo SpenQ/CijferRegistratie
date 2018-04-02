@@ -8,42 +8,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ExamControl.Properties
-{
-    /// <summary>
-    /// Defines the <see cref="Settings" />
-    /// </summary>
+namespace ExamControl.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.5.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-        /// <summary>
-        /// Defines the defaultInstance
-        /// </summary>
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-        /// <summary>
-        /// Gets the Default
-        /// </summary>
-        public static Settings Default
-        {
-            get
-            {
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
             }
         }
-
-        /// <summary>
-        /// Gets the ConnectionString
-        /// </summary>
+        
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Integrated Security=True")]
-        public string ConnectionString
-        {
-            get
-            {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=ExamControl;Integrated Security=True")]
+        public string ConnectionString {
+            get {
                 return ((string)(this["ConnectionString"]));
             }
         }
