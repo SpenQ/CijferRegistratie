@@ -5,7 +5,7 @@ namespace ExamControl.Models.Exam
 {
     public class InsertGradesModel
     {
-        public string AppUserFirstName { get; set; }
+        public string AppUserName { get; set; }
 
         [Required]
         public string AppUserLastName { get; set; }

@@ -52,12 +52,22 @@ namespace ExamControl.Controllers
             return RedirectToAction("InsertExam");
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public ActionResult InsertGrades()
+        {
+            var model = new InsertGradesModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult InsertGrades(InsertGradesModel model)
         {
             var ctx = new AppDbContext();
 
-            var subject = ctx.Subjects.Where(s => s.Id == model.ExamSubject).SingleOrDefault();
+            var subject = ctx.Subjects.SingleOrDefault(s => s.Id == model.ExamSubject);
 
             if (subject == null)
             {
