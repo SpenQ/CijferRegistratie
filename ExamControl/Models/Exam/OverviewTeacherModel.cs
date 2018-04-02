@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace ExamControl.Models.Exam
 {
-    public class OverviewTeacher
+    public class OverviewTeacherModel
     {
-        public OverviewTeacher(AppDbContext ctx)
+        public OverviewTeacherModel(AppDbContext ctx)
         {
             Exams = ctx.Exams
                 .Select(e => new Exam()

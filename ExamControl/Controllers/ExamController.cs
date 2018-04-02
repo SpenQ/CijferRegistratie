@@ -114,7 +114,7 @@ namespace ExamControl.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult OverviewTeacher()
         {
-            var model = new OverviewTeacher(new AppDbContext());
+            var model = new OverviewTeacherModel(new AppDbContext());
 
             return View(model);
         }
