@@ -3,7 +3,8 @@ using System.Linq;
 using System.Web.Mvc;
 using ExamControl.Domain;
 using ExamControl.Models;
-using ExamControl.Models.Exam;
+using ExamControl.Models.InsertExam;
+using ExamControl.Models.InsertGrades;
 
 namespace ExamControl.Controllers
 {
@@ -53,10 +54,26 @@ namespace ExamControl.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult InsertGrades()
+        public ActionResult InsertGrades(InsertGradesModel model)
         {
-            return View();
+            var ctx = new AppDbContext();
+
+            var subject = ctx.Subjects.Where(s => s.Id == model.ExamSubject).SingleOrDefault();
+
+            if (subject == null)
+            {
+                throw new Exception("Subject does not exist.");
+            }
+
+            //var insertGrades = new ExamRegistration(model.AppUserFirstName, model.AppUserLastName,model.ExamRegistrationGrade,model.ExamSubjectName, model.StudentNumber );
+
+            ctx.ExamRegistrations.Add(insertGrades);
+
+            ctx.SaveChanges();
+
+            return RedirectToAction("InsertExam");
         }
+
 
         [Authorize(Roles = "Admin,Student,Teacher")]
         public ActionResult Overview()

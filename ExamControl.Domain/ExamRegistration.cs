@@ -4,11 +4,19 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    
     /// <summary>
     /// Defines the <see cref="ExamRegistration" />
     /// </summary>
     public class ExamRegistration
     {
+        public ExamRegistration (int id, Exam exam, DateTime registeredDateTime, bool availableSurveillant )
+        {
+            Id = id;
+            Exam = exam;
+            RegisteredDateTime = registeredDateTime;
+            AvailableSurveillant = availableSurveillant;
+        }
         /// <summary>
         /// Gets or sets the Id
         /// </summary>

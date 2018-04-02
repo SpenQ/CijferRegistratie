@@ -188,6 +188,7 @@
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Auth\AppViewPage.cs" />
     <Compile Include="Models\Auth\LogInModel.cs" />
+    <Compile Include="Models\Exam\InsertGradesModel.cs" />
     <Compile Include="Models\Exam\InsertExamModel.cs" />
     <Compile Include="Models\Exam\OverviewTeacher.cs" />
     <Compile Include="Models\Plan\IndexModel.cs" />
