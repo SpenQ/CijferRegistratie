@@ -12,14 +12,34 @@ namespace ExamControl.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult RegisterExam()
         {
-            return View();
+            ViewBag.ExamSubjects = new AppDbContext().Subjects
+                .Select(s => new SelectListItem()
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.Name
+                });
+
+            return View(new RegisterExamModel());
+        }
+
+        //public ActionResult RegisterExam(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        [HttpPost]
+        [Authorize(Roles = "Student")]
+        public ActionResult GetRegisterableExams(int selectedExamSubject)
+        {
+            var ctx = new AppDbContext();
+            var model = new RegisterExamModel(ctx, selectedExamSubject);
+
+            return PartialView(model);
         }
 
         [Authorize(Roles = "Teacher")]
         public ActionResult InsertExam()
         {
-            var model = new InsertExamModel();
-
             ViewBag.ExamSubjects = new AppDbContext().Subjects
                     .Select(s => new SelectListItem()
                     {
@@ -27,7 +47,7 @@ namespace ExamControl.Controllers
                         Text = s.Name
                     });
 
-            return View();
+            return View(new InsertExamModel());
         }
 
         [HttpPost]
@@ -36,14 +56,14 @@ namespace ExamControl.Controllers
         {
             var ctx = new AppDbContext();
 
-            var subject = ctx.Subjects.Where(s => s.Id == model.SelectedExamSubject).SingleOrDefault();
+            var subject = ctx.Subjects.SingleOrDefault(s => s.Id == model.SelectedExamSubject);
 
             if (subject == null)
             {
                 throw new Exception("Subject does not exist.");
             }
 
-            var insertExam = new Exam(null, subject, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers, model.ExamSurveillantAvailable);
+            var insertExam = new Exam(null, subject, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers, model.ExamSurveillantAvailable, model.ExamDuration);
 
             ctx.Exams.Add(insertExam);
 
