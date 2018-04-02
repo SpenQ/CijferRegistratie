@@ -10,12 +10,11 @@
     /// </summary>
     public class ExamRegistration
     {
-        public ExamRegistration (int id, Exam exam, DateTime registeredDateTime, bool availableSurveillant )
+        public ExamRegistration (Exam exam, string student, DateTime registeredDateTime)
         {
-            Id = id;
             Exam = exam;
             RegisteredDateTime = registeredDateTime;
-            AvailableSurveillant = availableSurveillant;
+            Student = student;
         }
         /// <summary>
         /// Gets or sets the Id
@@ -33,14 +32,6 @@
         /// </summary>
         public DateTime RegisteredDateTime { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether AvailableSurveillant
-        /// </summary>
-        public bool AvailableSurveillant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Attributes
-        /// </summary>
-        public KeyValuePair<string, string> Attributes { get; set; }
+        public string Student { get; set; }
     }
 }

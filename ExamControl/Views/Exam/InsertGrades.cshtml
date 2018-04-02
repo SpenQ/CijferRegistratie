@@ -1,15 +1,34 @@
-﻿
+﻿@model ExamControl.Models.Exam.InsertGradesModel
+
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container" style="margin-top: 1em;">
-    <h1>
-        Cijfers registreren
-    </h1>
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery.unobtrusive")
+}
 
-    <div class="row">
+<h2>Cijfers registreren</h2>
+
+@using (Ajax.BeginForm("GetInsertableGradeRegistrations", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divInsertableGradeRegistrations" }))
+{
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            @Html.DropDownListFor(m => m.SelectedExamSubject, ViewBag.ExamSubjects as IEnumerable<SelectListItem>, "Selecteer vak...", new { @class = "form-control" })
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Selecteer</button>
+        </div>
+    </div>
+}
+
+<br />
+
+<div id="divInsertableGradeRegistrations" class="row"></div>
+
+@*<div class="row">
         <form>
             <div class="col-sm">
                 <div class="form-group">
@@ -88,6 +107,4 @@
     <div class="float-right btnContainer">
         <button type="submit" class="btn btn-secondary">terug</button>
         <button type="submit" class="btn btn-primary">Opslaan</button>
-    </div>
-
-</div>
+    </div>*@

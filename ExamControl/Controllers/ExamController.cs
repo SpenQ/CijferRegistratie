@@ -52,35 +52,54 @@ namespace ExamControl.Controllers
             return RedirectToAction("InsertExam");
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult InsertGrades()
         {
+            ViewBag.ExamSubjects = new AppDbContext().Exams
+                    .Where(e => e.DateTime.HasValue
+                    && e.DateTime.Value < DateTime.Now)
+                    .Select(e => new SelectListItem()
+                    {
+                        Value = e.Id.ToString(),
+                        Text = e.Subject.Name
+                    });
+
             var model = new InsertGradesModel();
 
             return View(model);
         }
 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult InsertGrades(InsertGradesModel model)
+        public ActionResult GetInsertableGradeRegistrations(int selectedExamSubject)
         {
             var ctx = new AppDbContext();
 
-            var subject = ctx.Subjects.SingleOrDefault(s => s.Id == model.ExamSubject);
+            var model = new InsertGradesModel(ctx, selectedExamSubject);
 
-            if (subject == null)
-            {
-                throw new Exception("Subject does not exist.");
-            }
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Teacher")]
+        public ActionResult InsertGrades(InsertGradesModel model)
+        {
+            throw new NotImplementedException();
+
+            //var ctx = new AppDbContext();
+
+            //var subject = ctx.Subjects.SingleOrDefault(s => s.Id == model.ExamSubject);
+
+            //if (subject == null)
+            //{
+            //    throw new Exception("Subject does not exist.");
+            //}
 
             //var insertGrades = new ExamRegistration(model.AppUserFirstName, model.AppUserLastName,model.ExamRegistrationGrade,model.ExamSubjectName, model.StudentNumber );
 
             //ctx.ExamRegistrations.Add(insertGrades);
 
-            ctx.SaveChanges();
+            //ctx.SaveChanges();
 
-            return RedirectToAction("InsertExam");
+            //return RedirectToAction("InsertExam");
         }
 
 
