@@ -149,13 +149,15 @@ namespace ExamControl.Migrations
 
                 var classroom = new Classroom(16, true, "ABC");
 
-                var examEnglish = new Exam(DateTime.Now.AddDays(7), subjectEnglish, 15, classroom, true, true);
+                var examEnglish = new Exam(DateTime.Now.AddDays(7), subjectEnglish, 15, classroom, true, true, new TimeSpan(1, 30, 0));
+                var examEnglish2 = new Exam(DateTime.Now.AddDays(7).AddHours(3), subjectEnglish, 15, classroom, true, true, new TimeSpan(1, 30, 0));
 
                 context.Classrooms.Add(classroom);
 
                 context.Subjects.Add(subjectEnglish);
 
                 context.Exams.Add(examEnglish);
+                context.Exams.Add(examEnglish2);
             }
         }
     }
