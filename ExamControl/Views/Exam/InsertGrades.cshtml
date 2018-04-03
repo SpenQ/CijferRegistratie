@@ -1,126 +1,110 @@
-﻿
+﻿@model ExamControl.Models.Exam.InsertGradesModel
+
 @{
     ViewBag.Title = "View";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>
-    Inschrijven tentamen
-</h1>
-<br>
-<div class="row">
-    <div class="col-sm">
-        <table class="table table-striped table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Selecteer Vak</th>
-                    <th scope="col">Aantal studenten</th>
-                    <th scope="col">Toezicht tentamen</th>
-                    <th scope="col">Computerlokaal</th>
-                    <th scope="col">Uploaden</th>
-                    <th scope="col">Gelukt</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">
-                        <div class="form-group">
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery.unobtrusive")
+}
 
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option>ASP C# .NET</option>
-                                <option>Engels 1</option>
-                                <option>RUP</option>
-                            </select>
-                        </div>
-                    </th>
-                    <td>
-                        <div class="form-group">
-                            <input class="form-control" id="exampleFormEnter" placeholder="voer getal in">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <select class="form-control" id="exampleFormControlSelect2">
-                                <option>Keuze...</option>
-                                <option>Docent</option>
-                                <option>Surveillant</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <select class="form-control" id="exampleFormControlSelect3">
-                                <option>Keuze...</option>
-                                <option>Ja</option>
-                                <option>Nee</option>
-                            </select>
-                        </div>
-                    </td>
-                    <td>
+<h2>Cijfers registreren</h2>
 
-                        <button type="submit" class="btn btn-secondary">Bladeren</button>
-                        &nbsp
-                        <button type="submit" class="btn btn-primary">Uploaden</button>
+@using (Ajax.BeginForm("GetInsertableGradeRegistrations", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divInsertableGradeRegistrations" }))
+{
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            @Html.DropDownListFor(m => m.SelectedExamSubject, ViewBag.ExamSubjects as IEnumerable<SelectListItem>, "Selecteer vak...", new { @class = "form-control" })
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Selecteer</button>
+        </div>
+    </div>
+}
 
-                    </td>
+<br />
 
-                    <td>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Green_tick_pointed.svg/768px-Green_tick_pointed.svg.png"
-                             width="20px" height="20px" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<div id="divInsertableGradeRegistrations" class="row"></div>
+
+@*<div class="row">
+        <form>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Selecteer Vak</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Keuze...</option>
+                        <option>ASP C# .NET</option>
+                        <option>RUP</option>
+                        <option>Engels 1</option>
+                    </select>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <div class="alert alert-success">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Green_tick_pointed.svg/768px-Green_tick_pointed.svg.png"
-             width="20px" height="20px" /> Invoeren tentamen gelukt
-    </div>
-    <div class="alert alert-danger">
-        <img src="http://www.clker.com/cliparts/D/0/R/b/X/W/red-cross-hi.png" width="20px" height="20px" /> Invoeren mislukt,
-        probeer opnieuw.
-    </div>
 
     <hr />
-
-    <h1>Overzicht Ingevoerde Tentamen</h1>
-    <br>
 
     <table class="table table-striped table-dark">
         <thead>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Vak</th>
-                <th scope="col">Computerlokaal benodigd</th>
-                <th scope="col">Aantal studenten</th>
+                <th scope="col">Naam Student</th>
+                <th scope="col">Studentnummer</th>
+                <th scope="col">Aanwezigheid</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <th scope="row">1</th>
                 <td>ASP C# .NET</td>
+                <td>Freek de Groen</td>
+                <td>00212538</td>
                 <td>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Green_tick_pointed.svg/768px-Green_tick_pointed.svg.png"
-                         width="16px" height="16px" />
+                    <div class="form-group">
+                        <input class="form-control" id="exampleFormEnter" placeholder="voer getal in">
+
+                    </div>
                 </td>
-                <td>21</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
-                <td>RUP</td>
-                <td><img src="http://www.clker.com/cliparts/D/0/R/b/X/W/red-cross-hi.png" width="16px" height="16px" /></td>
-                <td>22</td>
+                <td>ASP C# .NET</td>
+                <td>Arie Schouten</td>
+                <td>00211095</td>
+                <td style="width: 150px;">
+                    <div class="form-group">
+                        <input class="form-control" id="exampleFormEnter" placeholder="voer getal in">
+
+                    </div>
+                </td>
             </tr>
             <tr>
                 <th scope="row">3</th>
-                <td>Engels 1</td>
-                <td><img src="http://www.clker.com/cliparts/D/0/R/b/X/W/red-cross-hi.png" width="16px" height="16px" /></td>
-                <td>6</td>
+                <td>ASP C# .NET</td>
+                <td>Frank Plattel</td>
+                <td>00209520</td>
+                <td>
+                    <div class="form-group">
+                        <input class="form-control" id="exampleFormEnter" placeholder="voer getal in">
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">1</th>
+                <td>ASP C# .NET</td>
+                <td>Koen Kukken</td>
+                <td>00210904</td>
+                <td><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Green_tick_pointed.svg/768px-Green_tick_pointed.svg.png" width="16px" height="16px" /></td>
+
             </tr>
         </tbody>
     </table>
+
     <div class="float-right btnContainer">
         <button type="submit" class="btn btn-secondary">terug</button>
         <button type="submit" class="btn btn-primary">Opslaan</button>
-    </div>
+    </div>*@

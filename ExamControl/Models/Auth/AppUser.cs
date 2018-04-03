@@ -7,9 +7,8 @@
     /// </summary>
     public class AppUser : IdentityUser
     {
-        /// <summary>
-        /// Gets or sets the Country
-        /// </summary>
-        public string Country { get; set; }
+        public string Name { get; set; }
+
+        public string StudentNumber { get; set; }
     }
 }

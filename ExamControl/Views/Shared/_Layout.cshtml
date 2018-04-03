@@ -34,7 +34,7 @@
                     <div class="dropdown-menu">
                         @Html.ActionLink("Overzicht", "Overview", "Exam", null, new { @class = "nav-link" })
 
-                        @if (CurrentUser.IsInRole("Admin"))
+                        @if (CurrentUser.IsInRole("Teacher"))
                         {
                             @Html.ActionLink("Invoeren cijfers", "InsertGrades", "Exam", null, new { @class = "nav-link" })
                         }

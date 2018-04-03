@@ -43,7 +43,7 @@ namespace ExamControl.Controllers
                 throw new Exception("Subject does not exist.");
             }
 
-            var insertExam = new Exam(null, subject, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers, model.ExamSurveillantAvailable);
+            var insertExam = new Exam(null, subject, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers, model.ExamSurveillantAvailable, new TimeSpan());
 
             ctx.Exams.Add(insertExam);
 
@@ -52,11 +52,56 @@ namespace ExamControl.Controllers
             return RedirectToAction("InsertExam");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Teacher")]
         public ActionResult InsertGrades()
         {
-            return View();
+            ViewBag.ExamSubjects = new AppDbContext().Exams
+                    .Where(e => e.DateTime.HasValue
+                    && e.DateTime.Value < DateTime.Now)
+                    .Select(e => new SelectListItem()
+                    {
+                        Value = e.Id.ToString(),
+                        Text = e.Subject.Name
+                    });
+
+            var model = new InsertGradesModel();
+
+            return View(model);
         }
+
+        public ActionResult GetInsertableGradeRegistrations(int selectedExamSubject)
+        {
+            var ctx = new AppDbContext();
+
+            var model = new InsertGradesModel(ctx, selectedExamSubject);
+
+            return PartialView(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Teacher")]
+        public ActionResult InsertGrades(InsertGradesModel model)
+        {
+            throw new NotImplementedException();
+
+            //var ctx = new AppDbContext();
+
+            //var subject = ctx.Subjects.SingleOrDefault(s => s.Id == model.ExamSubject);
+
+            //if (subject == null)
+            //{
+            //    throw new Exception("Subject does not exist.");
+            //}
+
+            //var insertGrades = new ExamRegistration(model.AppUserFirstName, model.AppUserLastName,model.ExamRegistrationGrade,model.ExamSubjectName, model.StudentNumber );
+
+            //ctx.ExamRegistrations.Add(insertGrades);
+
+            //ctx.SaveChanges();
+
+            //return RedirectToAction("InsertExam");
+        }
+
 
         [Authorize(Roles = "Admin,Student,Teacher")]
         public ActionResult Overview()
