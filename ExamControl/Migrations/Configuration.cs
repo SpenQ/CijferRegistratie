@@ -31,19 +31,72 @@ namespace ExamControl.Migrations
         {
             CreateRoles(context);
 
-            var students = CreateUsers(context);
+            CreateStaffUsers(context);
+
+            IEnumerable<AppUser> students = CreateStudents(context);
 
             CreateOthers(context, students);
+        }
+
+        private IEnumerable<AppUser> CreateStudents(AppDbContext context)
+        {
+            if (!context.Users.Any(u => !string.IsNullOrEmpty(u.StudentNumber)))
+            {
+                var store = new UserStore<AppUser>(context);
+                var manager = new UserManager<AppUser>(store);
+
+                var userList = new AppUser[]
+                {
+                    new AppUser
+                    {
+                        Name = "Stephanie",
+                        StudentNumber = "002119031",
+                        UserName = "stephanie@examcontrol.com"
+                    },
+                    new AppUser
+                    {
+                        Name = "Koen",
+                        StudentNumber = "002119032",
+                        UserName = "koen@examcontrol.com"
+                    },
+                    new AppUser
+                    {
+                        Name = "Freek",
+                        StudentNumber = "002119033",
+                        UserName = "freek@examcontrol.com"
+                    },
+                    new AppUser
+                    {
+                        Name = "Arie",
+                        StudentNumber = "002119034",
+                        UserName = "arie@examcontrol.com"
+                    },
+                    new AppUser
+                    {
+                        Name = "Frank",
+                        StudentNumber = "002119035",
+                        UserName = "frank@examcontrol.com"
+                    }
+                };
+
+                foreach (var user in userList)
+                {
+                    manager.Create(user, "22INF2A");
+                    manager.AddToRole(user.Id, "Student");
+                }
+
+                return userList;
+            }
+
+            return Enumerable.Empty<AppUser>();
         }
 
         /// <summary>
         /// The CreateUsers
         /// </summary>
         /// <param name="context">The <see cref="AppDbContext"/></param>
-        private static IEnumerable<AppUser> CreateUsers(AppDbContext context)
+        private static void CreateStaffUsers(AppDbContext context)
         {
-            var students = new List<AppUser>();
-
             var store = new UserStore<AppUser>(context);
             var manager = new UserManager<AppUser>(store);
 
@@ -70,71 +123,6 @@ namespace ExamControl.Migrations
                 manager.Create(user, "22INF2A");
                 manager.AddToRole(user.Id, "Teacher");
             }
-
-            if (!context.Users.Any(u => !string.IsNullOrEmpty(u.StudentNumber)))
-            {
-                var stephanie = new AppUser
-                {
-                    Name = "Stephanie",
-                    StudentNumber = "002119031",
-                    UserName = "stephanie@examcontrol.com"
-                };
-
-                manager.Create(stephanie, "22INF2A");
-                manager.AddToRole(stephanie.Id, "Student");
-
-                students.Add(stephanie);
-
-                var koen = new AppUser
-                {
-                    Name = "Koen",
-                    StudentNumber = "002119032",
-                    UserName = "koen@examcontrol.com"
-                };
-
-                manager.Create(koen, "22INF2A");
-                manager.AddToRole(koen.Id, "Student");
-
-                students.Add(koen);
-
-                var freek = new AppUser
-                {
-                    Name = "Freek",
-                    StudentNumber = "002119033",
-                    UserName = "freek@examcontrol.com"
-                };
-
-                manager.Create(freek, "22INF2A");
-                manager.AddToRole(freek.Id, "Student");
-
-                students.Add(freek);
-
-                var arie = new AppUser
-                {
-                    Name = "Arie",
-                    StudentNumber = "002119034",
-                    UserName = "arie@examcontrol.com"
-                };
-
-                manager.Create(arie, "22INF2A");
-                manager.AddToRole(arie.Id, "Student");
-
-                students.Add(arie);
-
-                var frank = new AppUser
-                {
-                    Name = "Frank",
-                    StudentNumber = "002119035",
-                    UserName = "frank@examcontrol.com"
-                };
-
-                manager.Create(frank, "22INF2A");
-                manager.AddToRole(frank.Id, "Student");
-
-                students.Add(frank);
-            }
-
-            return students;
         }
 
         /// <summary>
@@ -180,29 +168,37 @@ namespace ExamControl.Migrations
             // Subjects, exams and registrations
             if (!ctx.Subjects.Any() && !ctx.Exams.Any())
             {
-                var subjectEnglish = new Subject("Engels");
+                var subjects = new Subject[]
+                {
+                    new Subject("Engels"),
+                    new Subject("RUP"),
+                    new Subject("C#")
+                };
 
                 var classroom = new Classroom(16, true, "ABC");
-
-                var examEnglish = new Exam(DateTime.Now.AddDays(-7), subjectEnglish, 15, classroom, true, true, new TimeSpan(1, 30, 0));
-                var examEnglish2 = new Exam(DateTime.Now.AddDays(7).AddHours(3), subjectEnglish, 15, classroom, true, true, new TimeSpan(1, 30, 0));
-                var examEnglish3 = new Exam(DateTime.Now.AddDays(7), subjectEnglish, 15, classroom, true, true, new TimeSpan(1, 30, 0));
-
-
                 ctx.Classrooms.Add(classroom);
 
-                ctx.Subjects.Add(subjectEnglish);
-
-                ctx.Exams.Add(examEnglish);
-                ctx.Exams.Add(examEnglish2);
-
-                if (!ctx.ExamRegistrations.Any())
+                foreach (var sub in subjects)
                 {
-                    foreach (var s in students)
-                    {
-                        var reg = new ExamRegistration(examEnglish, s.Id, DateTime.Now);
+                    ctx.Subjects.Add(sub);
 
-                        ctx.ExamRegistrations.Add(reg);
+                    var exams = new Exam[]
+                    {
+                        new Exam(DateTime.Now.AddDays(-7), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                        new Exam(DateTime.Now.AddDays(-7), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                        new Exam(DateTime.Now.AddDays(7), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                    };
+
+                    foreach (var ex in exams)
+                    {
+                        ctx.Exams.Add(ex);
+
+                        foreach (var s in students)
+                        {
+                            var reg = new ExamRegistration(ex, s.Id, DateTime.Now);
+
+                            ctx.ExamRegistrations.Add(reg);
+                        }
                     }
                 }
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ExamControl.Models.Exam
@@ -12,8 +13,10 @@ namespace ExamControl.Models.Exam
                 {
                     SubjectId = e.Subject.Id,
                     SubjectName = e.Subject.Name,
+                    ExamEstimatedAmountOfStudents = e.EstimatedAmountOfStudents,
+                    ExamSurveillantAvailable = e.SurveillantAvailable,
                     ExamNeedsComputers = e.NeedsComputers,
-                    ExamEstimatedAmountOfStudents = e.EstimatedAmountOfStudents
+                    ExamDuration = e.Duration,
                 });
         }
 
@@ -25,9 +28,13 @@ namespace ExamControl.Models.Exam
 
             public string SubjectName { get; set; }
 
+            public int ExamEstimatedAmountOfStudents { get; set; }
+
+            public bool ExamSurveillantAvailable { get; set; }
+
             public bool ExamNeedsComputers { get; set; }
 
-            public int ExamEstimatedAmountOfStudents { get; set; }
+            public TimeSpan ExamDuration { get; set; }
         }
     }
 }

@@ -12,23 +12,23 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Vak</th>
-            <th scope="col">Computerlokaal benodigd</th>
             <th scope="col">Aantal studenten</th>
+            <th scope="col">Surveillant beschikbaar</th>
+            <th scope="col">Computerlokaal benodigd</th>
+            <th scope="col">Tijdsduur benodigd</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var exam in Model.Exams)
         {
-            <tr>
-                <th scope="row">@Html.DisplayFor(m => exam.SubjectId)</th>
-                <td>@Html.DisplayFor(m => exam.SubjectName)</td>
-                <td>
-                    @Html.DisplayFor(m => exam.ExamNeedsComputers)
-                    @*<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Green_tick_pointed.svg/768px-Green_tick_pointed.svg.png" width="16px" height="16px" />*@
-                    @*<img src="http://www.clker.com/cliparts/D/0/R/b/X/W/red-cross-hi.png" width="16px" height="16px" />*@
-                </td>
-                <td>@Html.DisplayFor(mbox => exam.ExamEstimatedAmountOfStudents)</td>
-            </tr>
+        <tr>
+            <td>@Html.DisplayFor(m => exam.SubjectId)</td>
+            <td>@Html.DisplayFor(m => exam.SubjectName)</td>
+            <td>@Html.DisplayFor(mbox => exam.ExamEstimatedAmountOfStudents)</td>
+            <td>@Html.DisplayFor(mbox => exam.ExamSurveillantAvailable)</td>
+            <td>@Html.DisplayFor(m => exam.ExamNeedsComputers)</td>
+            <td>@Html.DisplayFor(mbox => exam.ExamDuration)</td>
+        </tr>
         }
     </tbody>
 </table>

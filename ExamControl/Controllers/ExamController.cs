@@ -12,6 +12,9 @@ namespace ExamControl.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult RegisterExam()
         {
+            var ctx = new AppDbContext();
+            ViewBag.ExamSubjects = ctx.Exams.Select(e => new SelectListItem() { Text = e.Subject.Name, Value = e.Subject.Id.ToString() }).Distinct();
+
             return View();
         }
 
@@ -43,7 +46,7 @@ namespace ExamControl.Controllers
                 throw new Exception("Subject does not exist.");
             }
 
-            var insertExam = new Exam(null, subject, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers, model.ExamSurveillantAvailable, new TimeSpan());
+            var insertExam = new Exam(null, subject, model.EstimatedAmountOfStudents, null, model.ExamNeedsComputers, model.ExamSurveillantAvailable, new TimeSpan(0, model.ExamDuration, 0));
 
             ctx.Exams.Add(insertExam);
 
