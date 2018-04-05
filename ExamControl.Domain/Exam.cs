@@ -8,6 +8,11 @@
     /// </summary>
     public class Exam
     {
+        public Exam()
+        {
+
+        }
+
         public Exam(DateTime? dateTime, Subject subject, int estimatedAmountOfStudents, Classroom classroom, bool needsComputers, bool surveillantAvailable, TimeSpan duration)
         {
             DateTime = dateTime;

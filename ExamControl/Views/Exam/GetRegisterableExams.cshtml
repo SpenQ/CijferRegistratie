@@ -19,7 +19,7 @@
                 <td>@row.ExamDateTime.ToString("HH:mm")-@row.ExamDateTime.Add(row.ExamDuration).ToString("HH:mm")</td>
                 <td>@row.ClassroomCode</td>
                 <td>@row.ExamDuration.TotalMinutes min</td>
-                <td> <a href="/Exam/RegisterExam/@row.ExamId" class="btn btn-primary">Inschrijven</a></td>
+                <td> <a href="/Exam/RegisterForExam/@row.ExamId" class="btn btn-primary">Inschrijven</a></td>
                         
             </tr>
         }

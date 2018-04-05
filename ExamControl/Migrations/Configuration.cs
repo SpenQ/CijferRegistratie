@@ -175,31 +175,30 @@ namespace ExamControl.Migrations
                     new Subject("C#")
                 };
 
-                var classroom = new Classroom(16, true, "ABC");
-                ctx.Classrooms.Add(classroom);
+                var r = new Random();
 
                 foreach (var sub in subjects)
                 {
+                    var classroom = new Classroom(16, true, "ABC");
+                    ctx.Classrooms.Add(classroom);
+
                     ctx.Subjects.Add(sub);
 
                     var exams = new Exam[]
                     {
-                        new Exam(DateTime.Now.AddDays(-7), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
-                        new Exam(DateTime.Now.AddDays(-7), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
                         new Exam(DateTime.Now.AddDays(7), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                        new Exam(DateTime.Now.AddDays(7).AddHours(6), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                        new Exam(DateTime.Now.AddDays(7).AddHours(3), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
                     };
 
-                    foreach (var ex in exams)
-                    {
-                        ctx.Exams.Add(ex);
+                    ctx.Exams.Add(exams.ElementAt(r.Next() % 3));
 
-                        foreach (var s in students)
-                        {
-                            var reg = new ExamRegistration(ex, s.Id, DateTime.Now);
+                    //foreach (var s in students)
+                    //{
+                    //    var reg = new ExamRegistration(ex, s.Id, DateTime.Now);
 
-                            ctx.ExamRegistrations.Add(reg);
-                        }
-                    }
+                    //    ctx.ExamRegistrations.Add(reg);
+                    //}
                 }
             }
         }
