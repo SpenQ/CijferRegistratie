@@ -9,6 +9,13 @@
     /// </summary>
     public class ExamRegistration
     {
+        public ExamRegistration(Exam exam, DateTime registeredDateTime, string user)
+        {
+            Exam = exam;
+            RegisteredDateTime = registeredDateTime;
+            User = user;
+        }
+
         /// <summary>
         /// Gets or sets the Id
         /// </summary>
@@ -25,14 +32,6 @@
         /// </summary>
         public DateTime RegisteredDateTime { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether AvailableSurveillant
-        /// </summary>
-        public bool AvailableSurveillant { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Attributes
-        /// </summary>
-        public KeyValuePair<string, string> Attributes { get; set; }
+        public string User { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using ExamControl.Domain;
 using ExamControl.Models;
 using ExamControl.Models.Exam;
+using Microsoft.AspNet.Identity;
 
 namespace ExamControl.Controllers
 {
@@ -22,10 +23,26 @@ namespace ExamControl.Controllers
             return View(new RegisterExamModel());
         }
 
-        //public ActionResult RegisterExam(int id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        [Authorize(Roles = "Student")]
+        public ActionResult RegisterForExam(int id)
+        {
+            var ctx = new AppDbContext();
+
+            var exam = ctx.Exams.SingleOrDefault(e => e.Id == id);
+
+            if (exam == null
+                || !exam.DateTime.HasValue
+                || exam.DateTime.Value < DateTime.Now)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var registration = new ExamRegistration(exam, DateTime.Now, User.Identity.GetUserId());
+            ctx.ExamRegistrations.Add(registration);
+            ctx.SaveChanges();
+
+            return RedirectToAction("");
+        }
 
         [HttpPost]
         [Authorize(Roles = "Student")]
