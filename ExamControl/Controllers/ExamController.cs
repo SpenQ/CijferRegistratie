@@ -37,11 +37,11 @@ namespace ExamControl.Controllers
                 return new HttpUnauthorizedResult();
             }
 
-            var registration = new ExamRegistration(exam, DateTime.Now, User.Identity.GetUserId());
+            var registration = new ExamRegistration(exam, User.Identity.GetUserId(), DateTime.Now);
             ctx.ExamRegistrations.Add(registration);
             ctx.SaveChanges();
 
-            return RedirectToAction("");
+            return RedirectToAction("RegisterExam");
         }
 
         [HttpPost]
