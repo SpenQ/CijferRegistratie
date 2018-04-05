@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using ExamControl.Domain;
 using ExamControl.Models;
 using ExamControl.Models.Exam;
+using Microsoft.AspNet.Identity;
 
 namespace ExamControl.Controllers
 {
@@ -12,10 +13,45 @@ namespace ExamControl.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult RegisterExam()
         {
-            var ctx = new AppDbContext();
-            ViewBag.ExamSubjects = ctx.Exams.Select(e => new SelectListItem() { Text = e.Subject.Name, Value = e.Subject.Id.ToString() }).Distinct();
+            ViewBag.ExamSubjects = new AppDbContext().Subjects
+                .Select(s => new SelectListItem()
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.Name
+                });
 
-            return View();
+            return View(new RegisterExamModel());
+        }
+
+        [Authorize(Roles = "Student")]
+        public ActionResult RegisterForExam(int id)
+        {
+            var ctx = new AppDbContext();
+
+            var exam = ctx.Exams.SingleOrDefault(e => e.Id == id);
+
+            if (exam == null
+                || !exam.DateTime.HasValue
+                || exam.DateTime.Value < DateTime.Now)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var registration = new ExamRegistration(exam, DateTime.Now, User.Identity.GetUserId());
+            ctx.ExamRegistrations.Add(registration);
+            ctx.SaveChanges();
+
+            return RedirectToAction("");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Student")]
+        public ActionResult GetRegisterableExams(int selectedExamSubject)
+        {
+            var ctx = new AppDbContext();
+            var model = new RegisterExamModel(ctx, selectedExamSubject);
+
+            return PartialView(model);
         }
 
         [Authorize(Roles = "Teacher")]
