@@ -1,0 +1,30 @@
+﻿@model ExamControl.Models.Plan.ExamsModel
+
+@{
+    ViewBag.Title = "Plannen";
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jquery.unobtrusive")
+    @Scripts.Render("~/Scripts/DayPilot/daypilot-all.min.js")
+}
+
+<h1>@Model.SubjectName</h1>
+
+@using (Ajax.BeginForm("GetScheduleForClassroom", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divScheduleForClassroom" }))
+{
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            @Html.DropDownListFor(m => m.SelectedClassroom, ViewBag.Classrooms as IEnumerable<SelectListItem>, "Selecteer lokaal...", new { @class = "form-control" })
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Selecteer</button>
+        </div>
+    </div>
+}
+
+<br />
+
+<div id="divScheduleForClassroom" class="row"></div>
+

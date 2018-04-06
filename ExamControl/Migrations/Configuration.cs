@@ -177,11 +177,11 @@ namespace ExamControl.Migrations
 
                 var r = new Random();
 
+                var classroom = new Classroom(16, true, "ABC");
+                ctx.Classrooms.Add(classroom);
+
                 foreach (var sub in subjects)
                 {
-                    var classroom = new Classroom(16, true, "ABC");
-                    ctx.Classrooms.Add(classroom);
-
                     ctx.Subjects.Add(sub);
 
                     var exams = new Exam[]
@@ -193,12 +193,7 @@ namespace ExamControl.Migrations
 
                     ctx.Exams.Add(exams.ElementAt(r.Next() % 3));
 
-                    //foreach (var s in students)
-                    //{
-                    //    var reg = new ExamRegistration(ex, s.Id, DateTime.Now);
-
-                    //    ctx.ExamRegistrations.Add(reg);
-                    //}
+                    ctx.Exams.Add(new Exam(null, sub, 16, null, false, false, new TimeSpan(2, 30, 0)));
                 }
             }
         }

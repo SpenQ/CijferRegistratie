@@ -6,8 +6,8 @@
     @Scripts.Render("~/bundles/modernizr")
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 </head>
-<body>
-    <div class="container">
+<body class="bg-dark text-white">
+    <div class="container-fluid">
         @if (CurrentUser.Identity.IsAuthenticated)
         {
             <ul class="nav justify-content-end">
