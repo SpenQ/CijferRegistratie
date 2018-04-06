@@ -186,9 +186,9 @@ namespace ExamControl.Migrations
 
                     var exams = new Exam[]
                     {
-                        new Exam(DateTime.Now.AddDays(7), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
-                        new Exam(DateTime.Now.AddDays(7).AddHours(6), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
-                        new Exam(DateTime.Now.AddDays(7).AddHours(3), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                        new Exam(DateTime.Now.AddHours(3), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                        new Exam(DateTime.Now.AddHours(6), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
+                        new Exam(DateTime.Now.AddDays(1), sub, 15, classroom, true, true, new TimeSpan(1, 30, 0)),
                     };
 
                     ctx.Exams.Add(exams.ElementAt(r.Next() % 3));

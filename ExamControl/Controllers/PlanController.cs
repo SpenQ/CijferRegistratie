@@ -1,5 +1,6 @@
 ﻿namespace ExamControl.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -33,16 +34,45 @@
                 return new HttpUnauthorizedResult();
             }
 
-            var model = new ExamsModel(exam);
+            var model = new ExamsModel(ctx, exam);
 
             ViewBag.Classrooms = ctx.Classrooms.Select(c => new SelectListItem() { Text = c.Code, Value = c.Id.ToString() });
 
             return View(model);
         }
 
-        public ActionResult GetScheduleForClassroom(int selectedClassroom)
+        public ActionResult GetScheduleForClassroom(int id, int selectedClassroom)
         {
-            return PartialView();
+            var ctx = new AppDbContext();
+
+            var exam = ctx.Exams.Include("Subject").Where(e => e.Id == id).SingleOrDefault();
+
+            if (exam == null || exam.Subject == null)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var model = new ExamsModel(ctx, exam);
+
+            return PartialView(model);
+        }
+
+        public ActionResult InsertNewExamDate(int id, DateTime date)
+        {
+            var ctx = new AppDbContext();
+
+            var ex = ctx.Exams.Where(e => e.Id == id).SingleOrDefault();
+
+            if (ex == null)
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            ex.DateTime = date;
+
+            ctx.SaveChanges();
+
+            return new HttpStatusCodeResult(200);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿<div class="col-sm">
+﻿@model ExamControl.Models.Plan.ExamsModel
+<div class="col-sm">
     <div id="dp"></div>
 </div>
 
@@ -6,4 +7,39 @@
     var dp = new DayPilot.Calendar("dp");
     dp.viewType = "Week";
     dp.init();
+
+    dp.events.list = [
+    @foreach(var ex in Model.Exams)
+    {
+        @:{
+            @:"id": "@ex.Id",
+            @:"text": "@ex.SubjectName",
+            @:"start": "@ex.StartTime",
+            @:"end": "@ex.EndTime",
+        @:},
+    }
+    ];
+
+    var eventCreated = false;
+
+    dp.onTimeRangeSelected = function (args) {
+        if (!eventCreated) {
+            var e = new DayPilot.Event({
+            start: args.start,
+            end: args.start,
+            id: DayPilot.guid(),
+            resource: args.resource,
+            text: "@Model.SubjectName"
+            });
+
+        dp.events.add(e);
+
+        $.post("/Plan/InsertNewExamDate?id=@Model.Id&date=" + args.start, function (data) {
+            alert('Saved!');
+            eventCreated = true;
+            });
+        }
+    };
+
+    dp.update();
 </script>
